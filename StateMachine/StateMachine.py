@@ -30,8 +30,8 @@ class Transition(object):
 # arg2 : lista com os elementos da entrada
 def stateMachine(initialstate, inputarg):
 
-    print("Iniciando maquina de estados")
-    print("estado inicial = ", initialstate.name)
+    print "Iniciando maquina de estados"
+    print "estado inicial = [%s]"%(initialstate.name)
     print("Palavra = " + str(inputarg))
     currstate = initialstate;
     laststate = None
@@ -44,6 +44,5 @@ def stateMachine(initialstate, inputarg):
             print("fim da palavra")        
             return laststate
         currstate = currstate.nextstate(chr)
-        print("Proximo estado = ", currstate.name)
-        print("Palavra = " + str(inputarg))
+        print " [%s] ---------> [%s] input[%c]"%(laststate.name, currstate.name, chr)        
     return laststate
