@@ -1,3 +1,4 @@
+# Autor : Anderson Macedo
 import unittest
 from StateMachine import *
 
