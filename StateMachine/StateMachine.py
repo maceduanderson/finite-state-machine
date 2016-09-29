@@ -17,6 +17,8 @@ class State(object):
         return None
     def isfinal(self):
         return self.finalstate
+    def __str__(self):
+        return self.name
 
 # arg1 : referencia para funcao. A funcao deve receber apenas 1 argumento e retornar um booleano
 # arg2 : um objeto State(). 
@@ -31,7 +33,7 @@ class Transition(object):
 def stateMachine(initialstate, inputarg):
 
     print "Iniciando maquina de estados"
-    print "estado inicial = [%s]"%(initialstate.name)
+    print "estado inicial = [%s]"%(initialstate)
     print("Palavra = " + str(inputarg))
     currstate = initialstate;
     laststate = None
@@ -44,5 +46,5 @@ def stateMachine(initialstate, inputarg):
             print("fim da palavra")        
             return laststate
         currstate = currstate.nextstate(chr)
-        print " [%s] ---------> [%s] input[%c]"%(laststate.name, currstate.name, chr)        
+        print " [%s] ---------> [%s] input[%c]"%(laststate, currstate, chr)        
     return laststate
