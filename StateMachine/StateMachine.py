@@ -9,7 +9,7 @@ class State(object):
     def addtransition(self, transition):
         self.transitions.append(transition)
     
-    #executa todas as transicoes para o dado argumento. caso contrario reorna vazio. [argumento nao pertence ao alfabeto]
+    #executa todas as transicoes para o dado argumento. caso contrario reorna vazio.
     def nextstate(self, transarg):
         for transition in self.transitions:
             if transition.functrans(transarg):
@@ -46,5 +46,5 @@ def stateMachine(initialstate, inputarg):
             print("fim da palavra")        
             return laststate
         currstate = currstate.nextstate(chr)
-        print " [%s] ---------> [%s] input[%c]"%(laststate, currstate, chr)        
+        print " [%s] ---------> [%s] input[%s]"%(laststate, currstate, chr)        
     return laststate
