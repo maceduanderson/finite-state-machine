@@ -13,8 +13,9 @@ class State(object):
     def nextstate(self, transarg):
         for transition in self.transitions:
             if transition.functrans(transarg):
-                return transition.nextstate 
-        return None
+                return transition.nextstate                
+        return State(name='lixo') 
+        
     def isfinal(self):
         return self.finalstate
     def __str__(self):

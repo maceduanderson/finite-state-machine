@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>afa5279b-5361-4fe8-97c8-7b3ed516bfca</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>testStateMachine.py</StartupFile>
+    <StartupFile>testvalidadorlexico.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +24,12 @@
   <ItemGroup>
     <Compile Include="StateMachine.py" />
     <Compile Include="testStateMachine.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="testvalidadorlexico.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ValidadorLexico.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
