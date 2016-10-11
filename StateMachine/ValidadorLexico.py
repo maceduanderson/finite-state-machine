@@ -2,28 +2,37 @@ from StateMachine import *
 
 
 
-def isnumber(arg):
+def is_number(arg):
     if arg.isdigit():
         return True
     return False
 
-def isalpha(arg):
+def is_alpha(arg):
     if arg.isalpha():
         return True
     return False
 
-def ispoint(arg):
+def is_point(arg):
     if arg is '.':
         return True
     return False
 
-def isunderline(arg):
+def is_underline(arg):
     if arg is '_':
         return True
     return False        
 
+def is_arithmetic_operator(arg):
+    if arg in ['*', '/', '+', '-']:
+        return True
+    return False 
 
-def lexinumber(args):
+def is_atrib_operator(arg):
+    if arg is '=':
+        return True
+    return False
+
+def lexic_number(args):
 
     q1 = State(name='q1')
     q2 = State(True, 'q2')
@@ -31,11 +40,11 @@ def lexinumber(args):
     q4 = State(True, 'q4')
     
 
-    q1q2 = Transition(isnumber, q2)
-    q2q2 = Transition(isnumber, q2)    
-    q2q3 = Transition(ispoint, q3)
-    q3q4 = Transition(isnumber, q4)
-    q4q4 = Transition(isnumber, q4)
+    q1q2 = Transition(is_number, q2)
+    q2q2 = Transition(is_number, q2)    
+    q2q3 = Transition(is_point, q3)
+    q3q4 = Transition(is_number, q4)
+    q4q4 = Transition(is_number, q4)
 
     q1.addtransition(q1q2)
     q2.addtransition(q2q2)
@@ -50,15 +59,15 @@ def lexinumber(args):
     return finalstate.isfinal()
 
 
-def lexiident(args):
+def lexic_ident(args):
 
     q1 = State(name='q1')
     q2 = State(True, 'q2')
 
-    q1q2 = Transition(isalpha, q2)
-    q2q2 = Transition(isalpha, q2)
-    q2q21 = Transition(isnumber, q2)
-    q2q22 = Transition(isunderline, q2)
+    q1q2 = Transition(is_alpha, q2)
+    q2q2 = Transition(is_alpha, q2)
+    q2q21 = Transition(is_number, q2)
+    q2q22 = Transition(is_underline, q2)
 
     q1.addtransition(q1q2)
     q2.addtransition(q2q2)
