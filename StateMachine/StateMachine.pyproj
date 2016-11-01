@@ -26,7 +26,16 @@
     <Compile Include="testStateMachine.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="testTree.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="testvalidadorlexico.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="validadorexpr.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ValidadorLexico.py">

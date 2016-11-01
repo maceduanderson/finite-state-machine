@@ -5,6 +5,7 @@ class State(object):
         self.name = name #apenas para logging
         self.finalstate = finalstate
         self.transitions = list()
+        self.trash = False
 
     def addtransition(self, transition):
         self.transitions.append(transition)
@@ -14,8 +15,13 @@ class State(object):
         for transition in self.transitions:
             if transition.functrans(transarg):
                 return transition.nextstate                
-        return State(name='lixo') 
         
+        lixo = State(name='lixo')
+        lixo.trash = True
+        return lixo
+    
+    def islixo(self):
+        return self.trash    
     def isfinal(self):
         return self.finalstate
     def __str__(self):
@@ -35,9 +41,10 @@ def stateMachine(initialstate, inputarg):
 
     print "Iniciando maquina de estados"
     print "estado inicial = [%s]"%(initialstate)
-    print("Palavra = " + str(inputarg))
+    print("Palavra = " + "".join(inputarg))
     currstate = initialstate;
     laststate = None
+    recognizedstr = list()
     while currstate:
         laststate = currstate
         chr = None
@@ -45,7 +52,10 @@ def stateMachine(initialstate, inputarg):
             chr = inputarg.pop(0)
         except IndexError:
             print("fim da palavra")        
-            return laststate
+            return laststate, "".join(recognizedstr)
         currstate = currstate.nextstate(chr)
-        print " [%s] ---------> [%s] input[%s]"%(laststate, currstate, chr)        
-    return laststate
+        if currstate.islixo():            
+            return laststate, "".join(recognizedstr)
+        print " [%s] ---------> [%s] input[%s]"%(laststate, currstate, chr)
+        recognizedstr.append(chr)        
+    return laststate, "".join(recognizedstr)

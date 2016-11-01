@@ -31,6 +31,10 @@ def is_atrib_operator(arg):
     if arg is '=':
         return True
     return False
+def is_pv(arg):
+    if arg is ';':
+        return True
+    return False
 
 def lexic_number(args):
 
@@ -52,11 +56,11 @@ def lexic_number(args):
     q3.addtransition(q3q4)
     q4.addtransition(q4q4)
 
-    listArgs = list(args)
+    listargs = list(args)
 
-    finalstate = stateMachine(q1, listArgs)
+    finalstate, recognizedstr = stateMachine(q1, listargs)
 
-    return finalstate.isfinal()
+    return finalstate.isfinal(), recognizedstr
 
 
 def lexic_ident(args):
@@ -74,8 +78,9 @@ def lexic_ident(args):
     q2.addtransition(q2q21)
     q2.addtransition(q2q22)
 
+    
     listargs = list(args)
 
-    finalstate = stateMachine(q1, listargs)
+    finalstate, recognizedstr = stateMachine(q1, listargs)
 
-    return finalstate.isfinal()
+    return finalstate.isfinal(), recognizedstr

@@ -28,42 +28,42 @@ class Test_testStateMachine(unittest.TestCase):
 
     def test_limites(self):
         matchstring = list('1')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertTrue(finalstate.isfinal())
 
         matchstring = list('0')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertFalse(finalstate.isfinal())
 
     def test_null(self):        
         matchstring = list()
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertFalse(finalstate.isfinal())
 
     def teste_linguagem_valida(self):
         matchstring = list('1')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertTrue(finalstate.isfinal())
 
         matchstring = list('000001')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertTrue(finalstate.isfinal())
 
         matchstring = list('010101111')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertTrue(finalstate.isfinal())
 
     def teste_linguagem_invalida(self):
         matchstring = list('0')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertFalse(finalstate.isfinal())
 
         matchstring = list('1111110')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertFalse(finalstate.isfinal())
 
         matchstring = list('1010101100')
-        finalstate = stateMachine(self.stateinitial, matchstring)
+        finalstate, recognizedstr = stateMachine(self.stateinitial, matchstring)
         self.assertFalse(finalstate.isfinal())
 
 if __name__ == '__main__':
