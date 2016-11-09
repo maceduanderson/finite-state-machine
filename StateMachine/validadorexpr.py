@@ -27,7 +27,7 @@ def validador_expr(args):
     q1q2 = Transition(is_atrib_operator, q2)        
     q2q4 = Transition(lexic_number, q4)
     q2q3 = Transition(lexic_ident, q3)
-    q3q4 = Transition(valid_ident, q4)
+    q3q2 = Transition(is_arithmetic_operator, q4)
     q4q2 = Transition(is_arithmetic_operator, q2)
     q4q5 = Transition(is_pv, q5)
 
@@ -35,7 +35,7 @@ def validador_expr(args):
     q1.addtransition(q1q2)
     q2.addtransition(q2q4)
     q2.addtransition(q2q3)
-    q3.addtransition(q3q4)
+    q3.addtransition(q3q2)
     q4.addtransition(q4q2)
     q4.addtransition(q4q5)
 
