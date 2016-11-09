@@ -5,13 +5,10 @@ from calc_automato import calc
 import re
 
 
-valvar = {}
 
 
-def valid_ident(arg):
-    if arg in valvar.keys():        
-        return True
-    return False
+
+
 
 
 def validador_expr(args):
@@ -45,13 +42,12 @@ def validador_expr(args):
 
     return finalstate.isfinal(), recognizedstr
     
-    
-
 
 if __name__ == '__main__':
     
     print("Iniciando validador de expressoes")
     nlines = 0
+    valvar = {}
     while nlines <= 0:
 
         try:
@@ -63,7 +59,8 @@ if __name__ == '__main__':
 
     
 
-    matchstr = re.compile("([a-z]+) = ([0-9]+)")
+    #matchstr = re.compile("([a-z]+) = ([0-9]+)")
+    matchstr = re.compile("([a-z]+) = (\d+\.*\d*)")
 
     while len(valvar) < nlines:
         print("Faltam [{}]".format(nlines - len(valvar)))
@@ -72,7 +69,7 @@ if __name__ == '__main__':
         if match:
             valvar[match.group(1)] = match.group(2)
         else:
-            print("expressao invalida\n Tente novamente")
+            print("atribuicao invalida\n Tente novamente")
     strexpr = str(raw_input("Digite a expressao\n"))
 
     arvore_expr = str_expr_to_tree(strexpr)
@@ -101,13 +98,7 @@ if __name__ == '__main__':
         print("o valor de %s e %s" %("".join(list_expr), str(valorfinal)))
 
     else: 
-        print("A expressao nao e valida")
-
-
-
-        
-
-
+        print("A expressao nao e valida")        
 
     pass
 

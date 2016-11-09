@@ -58,6 +58,8 @@ def is_pv(arg, stack):
                 val = val + (auxarg2 + auxarg)
             if operator is "-":
                 val = val + (auxarg2 - auxarg)
+            if operator is None:
+                val = val + auxarg
         return True
     return False
 
