@@ -1,4 +1,5 @@
 # Autor : Anderson Macedo
+from pilha import Pilha
 
 class State(object):
     def __init__(self, finalstate=False, name="noname"):
@@ -34,6 +35,15 @@ class Transition(object):
         self.functrans = functrans
         self.nextstate = nextState
         
+class StackState(State):
+    def nextstate(self, transarg, stack):
+        for transition in self.transitions:
+            if transition.functrans(transarg, stack):
+                return transition.nextstate                
+        
+        lixo = State(name='lixo')
+        lixo.trash = True
+        return lixo
 
 # arg1 : estado inicial
 # arg2 : lista com os elementos da entrada
@@ -45,6 +55,7 @@ def stateMachine(initialstate, inputarg):
     currstate = initialstate;
     laststate = None
     recognizedstr = list()
+    stack = Pilha()
     while currstate:
         laststate = currstate
         chr = None
@@ -53,7 +64,12 @@ def stateMachine(initialstate, inputarg):
         except IndexError:
             print("fim da palavra")        
             return laststate, "".join(recognizedstr)
-        currstate = currstate.nextstate(chr)
+        if type(currstate) == State:             
+            currstate = currstate.nextstate(chr)
+        else:
+            currstate = currstate.nextstate(chr, stack)
+            print("Estado da pilha")
+            print(stack)               
         if currstate.islixo():            
             return laststate, "".join(recognizedstr)
         print " [%s] ---------> [%s] input[%s]"%(laststate, currstate, chr)

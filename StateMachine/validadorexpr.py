@@ -1,6 +1,7 @@
 from ValidadorLexico import *
 from StateMachine import *
 from Tree import *
+from calc_automato import calc
 import re
 
 
@@ -70,10 +71,12 @@ if __name__ == '__main__':
         match = matchstr.match(attrib)
         if match:
             valvar[match.group(1)] = match.group(2)
-
+        else:
+            print("expressao invalida\n Tente novamente")
     strexpr = str(raw_input("Digite a expressao\n"))
 
     arvore_expr = str_expr_to_tree(strexpr)
+    printTree(arvore_expr)
     list_expr = tree_to_list(arvore_expr)
 
     validou, expr = validador_expr(list_expr)
@@ -84,6 +87,19 @@ if __name__ == '__main__':
         newlist_expr = [ valvar[x] if x in valvar.keys() else x for x in list_expr]
 
         print("".join(newlist_expr))
+
+        arvore_right = arvore_expr.getRightChild()
+        list_expr = tree_to_list(arvore_right)
+        newlist_expr = [ valvar[x] if x in valvar.keys() else x for x in list_expr]
+        
+        
+        valorfinal = calc(newlist_expr)
+
+        arvore_left = arvore_expr.getLeftChild()
+        list_expr = tree_to_list(arvore_left)
+
+        print("o valor de %s e %s" %("".join(list_expr), str(valorfinal)))
+
     else: 
         print("A expressao nao e valida")
 
