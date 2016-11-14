@@ -8,7 +8,27 @@ import re
 
 
 
-
+def fromfile():
+    matchstr = re.compile("([a-z]+) = (\d+\.*\d*)")
+    valvar = {}
+    try:
+        fd = open("exprdef.txt", "r")
+        lines = []
+        lines = fd.readlines()
+        for i in range(0, len(lines)):
+            if lines[i] == "\n":
+                lines[i+1] = lines[i+1][:-1]
+                return lines[i+1], valvar
+            attrib = lines[i]
+            match = matchstr.match(attrib)
+            if match:
+               valvar[match.group(1)] = match.group(2)
+            else:
+                print("Erro Ao processar arquivo")
+                raise SystemExit                   
+    except IOError:
+        print("Arquivo exprdef.txt nao encontrando. Informe os dados pelo console.")
+        return None, None
 
 
 def validador_expr(args):
@@ -47,30 +67,29 @@ if __name__ == '__main__':
     
     print("Iniciando validador de expressoes")
     nlines = 0
-    valvar = {}
-    while nlines <= 0:
-
-        try:
-            nlines = int(raw_input("Digite a quantidade de variaveis\n"))
-            if nlines <= 0:
-                print("O valor deve ser maior que 0")
-        except ValueError:
-            print("Valor Invalido")
-
     
 
-    #matchstr = re.compile("([a-z]+) = ([0-9]+)")
-    matchstr = re.compile("([a-z]+) = (\d+\.*\d*)")
+    strexpr, valvar = fromfile()
 
-    while len(valvar) < nlines:
-        print("Faltam [{}]".format(nlines - len(valvar)))
-        attrib = str(raw_input("Digite a atribuicao\n"))
-        match = matchstr.match(attrib)
-        if match:
-            valvar[match.group(1)] = match.group(2)
-        else:
-            print("atribuicao invalida\n Tente novamente")
-    strexpr = str(raw_input("Digite a expressao\n"))
+    if strexpr == None:
+        matchstr = re.compile("([a-z]+) = (\d+\.*\d*)")
+        while nlines <= 0:
+            try:
+                nlines = int(raw_input("Digite a quantidade de variaveis\n"))
+                if nlines <= 0:
+                    print("O valor deve ser maior que 0")
+            except ValueError:
+                print("Valor Invalido")    
+        while len(valvar) < nlines:
+            print("Faltam [{}]".format(nlines - len(valvar)))
+            attrib = str(raw_input("Digite a atribuicao\n"))
+            match = matchstr.match(attrib)
+            if match:
+                valvar[match.group(1)] = match.group(2)
+            else:
+                print("atribuicao invalida\n Tente novamente")
+
+        strexpr = str(raw_input("Digite a expressao\n"))
 
     arvore_expr = str_expr_to_tree(strexpr)
     printTree(arvore_expr)
